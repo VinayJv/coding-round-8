@@ -13,6 +13,6 @@ const navigate = useNavigate();
     return(
     <div className="NavBar">
         <div onClick={()=>navigate("/")} style={{cursor: "pointer"}}><h2>MeetUp</h2></div>
-        <div><input type="search" className="navinput" onChange={inputHandler} placeholder="Search by title"></input></div>
+        <div><input type="search" className="navinput" onChange={inputHandler} placeholder="Search by title or tag"></input></div>
     </div>);
 }

@@ -1,6 +1,9 @@
 import { useParams } from "react-router";
 import { useDataContext } from "../context/DataContext";
 import { useState } from "react";
+import { BiTime } from "react-icons/bi";
+import { BiCurrentLocation } from "react-icons/bi";
+import { PiCurrencyInrBold } from "react-icons/pi";
 
 export function Description(){
     const [showForm, setShowForm] = useState(false);
@@ -8,6 +11,8 @@ export function Description(){
     const { title } = useParams();
     const clickedEvent = data.find((meetup)=>meetup.title === title);
     const [toggle,setToggle] = useState(clickedEvent.isPaid);
+    const startDate = new Date(clickedEvent.eventStartTime);
+    const endDate = new Date(clickedEvent.eventEndTime);
 
     return(
     <div className="description">
@@ -30,7 +35,7 @@ export function Description(){
             <h1>{clickedEvent.title}</h1>
             <p>Hosted By:</p>
             <h5>{clickedEvent.hostedBy}</h5>
-            <img src={clickedEvent.eventThumbnail}></img>
+            <img src={clickedEvent.eventThumbnail} alt=""></img>
             <h3>Details: </h3>
             <p>{clickedEvent.eventDescription}</p>
             <h3>Additional Information: </h3>
@@ -42,7 +47,35 @@ export function Description(){
             </div>
         </div>
         <div className="right">
-            <button onClick={()=>setShowForm(!showForm)}>{toggle ? "Already RSVPed" : "RSVP"}</button>
+            <div className="container">
+            <div className="date-container">
+                <div><BiTime /></div>
+                <div>
+                    <p>{startDate.toDateString()} at {startDate.toLocaleTimeString()} to</p>
+                    <p>{endDate.toDateString()} at {endDate.toLocaleTimeString()}</p>
+                </div>             
+            </div>
+            <div className="date-container">
+                <div><BiCurrentLocation /></div>
+                <div>
+                    <p>{clickedEvent.location}</p>
+                    <p>{clickedEvent.address}</p>
+                </div>             
+            </div>
+            <div className="date-container">
+                <div><PiCurrencyInrBold /></div>
+                <div>{clickedEvent.price}</div>             
+            </div>
+            </div>
+            <h3>SPEAKERS: ({clickedEvent.speakers.length})</h3>
+            <div className="speaker-container">
+                {clickedEvent.speakers.map((speaker,index)=><div className="speaker-card" key={index}>
+                    <img src={speaker.image} alt="" className="speaker-img"></img>
+                    <b>{speaker.name}</b>
+                    <p>{speaker.designation}</p>
+                </div>)}
+            </div>
+            <button className="RSVP-btn" onClick={()=>setShowForm(!showForm)}>{toggle ? "Already RSVPed" : "RSVP"}</button>
         </div>
     </div>);
 }
