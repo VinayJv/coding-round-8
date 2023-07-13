@@ -4,6 +4,7 @@ export function Card({ data }){
     const navigate = useNavigate();
     return(
     <div className="card" onClick={()=>navigate(`/${data.title}`)}>
+        <div className="callouts">{data.eventType} Event</div>
         <img src={data.eventThumbnail} alt=""></img>
         <div>
             <span className="time">{data.eventStartTime}</span>
@@ -11,6 +12,5 @@ export function Card({ data }){
             <span className="time">{data.eventEndTime}</span>
         </div>
         <h4>{data.title}</h4>
-        
     </div>);
 }
