@@ -3,13 +3,11 @@ import { useDataContext } from "../context/DataContext";
 import { useState } from "react";
 
 export function Description(){
-    const [toggle,setToggle] = useState(false);
     const [showForm, setShowForm] = useState(false);
     const { data } = useDataContext();
     const { title } = useParams();
-
     const clickedEvent = data.find((meetup)=>meetup.title === title);
-    console.log(clickedEvent);
+    const [toggle,setToggle] = useState(clickedEvent.isPaid);
 
     return(
     <div className="description">
@@ -22,7 +20,7 @@ export function Description(){
                     <label>Email:<br /><input type="text" className="forminput"></input></label>
                 </div>
                 <button onClick={()=>{
-                    setToggle(true);
+                    setToggle(!toggle);
                     setShowForm(false);
                 }}>RSVP</button>
                 <button onClick={()=>setShowForm(false)}>Close</button>

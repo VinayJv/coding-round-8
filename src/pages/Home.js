@@ -3,6 +3,7 @@ import { Card } from "../components/Card";
 
 export function Home(){
     const { data, filter, setFilter, search } = useDataContext();
+    console.log(data[0]);
 
     const changeFilter = (event) => {
         setFilter(event.target.value);
@@ -14,7 +15,7 @@ export function Home(){
             temp = data;
         }
         else {
-            temp = data.filter((meetup)=>meetup.title.toLowerCase().includes(search));
+            temp = data.filter((meetup)=>meetup.title.toLowerCase().includes(search) && meetup.tags);
         }
         return filter.length === 0 ? temp : temp.filter((meetup)=>meetup.eventType === filter);    
     }
